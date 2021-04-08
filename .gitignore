@@ -1,0 +1,12 @@
+# Ignore everything
+/**
+
+# Except...
+
+!README.md
+!/.zshrc
+!/.gitignore
+
+!/.config/
+!/.config/alacritty/
+!/.config/alacritty/**
