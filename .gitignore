@@ -8,5 +8,10 @@
 !/.gitignore
 
 !/.config/
+
 !/.config/alacritty/
 !/.config/alacritty/**
+
+!/.config/spicetify/
+!/.config/spicetify/Themes/
+!/.config/spicetify/Themes/**
