@@ -17,3 +17,6 @@
 
 !/.config/jetbrains/
 !/.config/jetbrains/**
+
+!/.config/bspwm/
+!/.config/bspwm/**
