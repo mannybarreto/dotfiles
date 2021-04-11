@@ -4,7 +4,6 @@
 # Except...
 
 !README.md
-!/.zshrc
 !/.gitignore
 
 !/.config/
