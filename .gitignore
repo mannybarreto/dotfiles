@@ -6,6 +6,9 @@
 !README.md
 !/.gitignore
 
+!/.scripts/
+!/.scripts/**
+
 !/.config/
 
 !/.config/alacritty/
@@ -23,3 +26,9 @@
 
 !/.config/sxhkd/
 !/.config/sxhkd/**
+
+!/.config/fish/
+!/.config/fish/**
+
+!/.config/nvim/
+!/.config/nvim/**

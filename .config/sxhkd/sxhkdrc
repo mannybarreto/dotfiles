@@ -3,8 +3,8 @@
 #
 
 ####User Application ####
-alt + {b,w,p,f}
-	{librewolf,garuda-welcome,pamac-manager,thunar}
+alt + {b,w,p,f,l}
+	{chromium,garuda-welcome,pamac-manager,thunar,lutris}
 
 # terminal emulator
 super + Return
