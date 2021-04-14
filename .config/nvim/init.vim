@@ -2,6 +2,7 @@
 
 " { Main configuration
 let g:config_file_list = ['options.vim',
+  \ 'autocommands.vim',
   \ 'mappings.vim',
   \ 'plugins.vim',
   \ 'ui.vim'

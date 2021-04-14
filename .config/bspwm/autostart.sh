@@ -10,6 +10,7 @@ fi
 
 sxhkd &
 picom &
+conky &
 . "${HOME}/.config/bspwm/colors.sh"
 
 #Other application can be added here to autostart

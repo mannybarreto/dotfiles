@@ -16,13 +16,20 @@ endif
 
 call plug#begin(g:plug_home)
 "{{ Autocompletion
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release', 'build': 'yarn install'}
 
 " Godot semantic highlighting
 Plug 'calviken/vim-gdscript3'
 
 " Unity
 Plug 'OmniSharp/omnisharp-vim'
+
+" JS Syntax Highlighting
+Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+Plug 'jparise/vim-graphql'
 "}}
 
 "{{ Search
@@ -127,7 +134,28 @@ call plug#end()
 
 "{ Plugin configuration
 "{{ Autocompletion
-let g:coc_global_extensions=['coc-omnisharp', 'coc-json', 'coc-css', 'coc-eslint', 'coc-tsserver', 'coc-jedi', 'coc-jest', 'coc-java', 'coc-yaml', 'coc-pairs', 'coc-fish', 'coc-rls', 'coc-html']
+let g:coc_global_extensions=['coc-omnisharp', 'coc-json', 'coc-css', 'coc-tsserver', 'coc-jedi', 'coc-jest', 'coc-java', 'coc-yaml', 'coc-pairs', 'coc-fish', 'coc-rls', 'coc-html']
+
+if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
+  let g:coc_global_extensions += ['coc-prettier']
+endif
+
+if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
+  let g:coc_global_extensions += ['coc-eslint']
+endif
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gr <Plug>(coc-references)
+
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+nnoremap <silent> <space>d :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <space>s :<C-u>CocList -I symbols<cr>
+
+nmap <leader>do <Plug>(coc-codeaction)
+nmap <leader>rn <Plug>(coc-rename)
 "}}
 "
 "{{ UI
@@ -290,6 +318,11 @@ nnoremap <silent> <leader>gs :Gstatus<CR>
 nnoremap <silent> <leader>gpl :Git pull<CR>
 " Note that to use bar literally, we need backslash it, see also `:h :bar`.
 nnoremap <silent> <leader>gpu :15split \| term git push
+
+" Fugitive Conflict Resolution
+nnoremap <leader>gd :Gvdiff!<CR>
+nnoremap gdh :diffget //2<CR>
+nnoremap gdl :diffget //3<CR>
 "}}
 
 "{{ Markdown 

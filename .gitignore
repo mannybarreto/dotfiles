@@ -32,3 +32,6 @@
 
 !/.config/nvim/
 !/.config/nvim/**
+
+!/.config/conky/
+!/.config/conky/**
