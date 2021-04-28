@@ -11,6 +11,8 @@
 
 !/.config/
 
+!/.config/starship.toml
+
 !/.config/alacritty/
 !/.config/alacritty/**
 
@@ -24,6 +26,9 @@
 !/.config/bspwm/
 !/.config/bspwm/**
 
+!/.config/rofi/
+!/.config/rofi/**
+
 !/.config/sxhkd/
 !/.config/sxhkd/**
 
@@ -35,3 +40,6 @@
 
 !/.config/conky/
 !/.config/conky/**
+
+!/.config/zathura/
+!/.config/zathura/**

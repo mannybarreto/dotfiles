@@ -3,8 +3,8 @@
 #
 
 ####User Application ####
-alt + {b,w,p,f,l}
-	{chromium,garuda-welcome,pamac-manager,thunar,lutris}
+alt + {b,w,p,f,l,s,d}
+	{chromium,garuda-welcome,pamac-manager,thunar,prime-run lutris,alacritty --command spt,discord}
 
 # terminal emulator
 super + Return

@@ -3,7 +3,6 @@
 
 # Article followed for hybrid setup w/ XFCE: https://github.com/bgdawes/bspwm-xfce-dotfiles/wiki
 
-
 . "${HOME}/.config/bspwm/autostart.sh"
 
 bspc monitor -d 1 2
@@ -36,4 +35,5 @@ bspc rule -a \* node=focused
 bspc rule -a xfce4-popup-whiskermenu state=floating border=off layer=normal
 bspc rule -a Yad state=floating border=off layer=normal
 bspc rule -a xfce4-notes floating=on
+bspc rule -a Zathura state=tiled border=off layer=normal
 

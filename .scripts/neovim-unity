@@ -1,2 +1,3 @@
 #!/bin/bash
+# launch neovim as editor in unity
 alacritty --command nvr --servername unity $@
