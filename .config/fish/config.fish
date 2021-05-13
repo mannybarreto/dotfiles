@@ -1,4 +1,4 @@
-﻿## Set values
+## Set values
 # Hide welcome message
 set fish_greeting
 set VIRTUAL_ENV_DISABLE_PROMPT "1"
@@ -29,7 +29,7 @@ end
 
 ## Starship prompt
 if status --is-interactive
-   source ("/usr/bin/starship" init fish --print-full-init | psub)
+   source ("/opt/homebrew/bin/starship" init fish --print-full-init | psub)
 end
 
 
@@ -161,5 +161,6 @@ end
 
 ## Run paleofetch if session is interactive
 if status --is-interactive
-   paleofetch
+   neofetch
 end
+

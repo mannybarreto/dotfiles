@@ -3,9 +3,6 @@
 SETUVAR __done_min_cmd_duration:10000
 SETUVAR __done_notification_urgency_level:low
 SETUVAR __fish_initialized:3100
-SETUVAR fish_key_bindings:fish_default_key_bindings
-
-# Colors
 SETUVAR fish_color_autosuggestion:818596
 SETUVAR fish_color_cancel:normal
 SETUVAR fish_color_command:5ccc96
@@ -22,9 +19,9 @@ SETUVAR fish_color_match:normal
 SETUVAR fish_color_normal:normal
 SETUVAR fish_color_operator:ce6f8f
 SETUVAR fish_color_param:b3a1e6
-SETUVAR fish_color_quote:00a3cc # done
+SETUVAR fish_color_quote:00a3cc\x20\x23\x20done
 SETUVAR fish_color_redirection:ff5f00
-SETUVAR fish_color_search_match:686f9a # done
+SETUVAR fish_color_search_match:686f9a\x20\x23\x20done
 SETUVAR fish_color_selection:c0c0c0
 SETUVAR fish_color_status:red
 SETUVAR fish_color_user:00ff00
@@ -35,3 +32,4 @@ SETUVAR fish_pager_color_completion:normal
 SETUVAR fish_pager_color_description:B3A06D\x1eyellow
 SETUVAR fish_pager_color_prefix:white\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
 SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
+SETUVAR fish_user_paths:/opt/homebrew/bin\x1e/usr/local/bin\x1e/usr/local/bin\x1e/usr/local/bin\x1e/opt/homebrew/opt/ncurses/bin
