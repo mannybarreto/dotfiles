@@ -13,9 +13,6 @@
 
 !/.config/starship.toml
 
-!/.config/alacritty/
-!/.config/alacritty/**
-
 !/.config/spicetify/
 !/.config/spicetify/Themes/
 !/.config/spicetify/Themes/**
@@ -23,23 +20,11 @@
 !/.config/jetbrains/
 !/.config/jetbrains/**
 
-!/.config/bspwm/
-!/.config/bspwm/**
-
-!/.config/rofi/
-!/.config/rofi/**
-
-!/.config/sxhkd/
-!/.config/sxhkd/**
-
 !/.config/fish/
 !/.config/fish/**
 
 !/.config/nvim/
 !/.config/nvim/**
 
-!/.config/conky/
-!/.config/conky/**
-
-!/.config/zathura/
-!/.config/zathura/**
+!/.config/iterm2/
+!/.config/iterm2/**
