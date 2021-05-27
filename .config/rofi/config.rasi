@@ -3,7 +3,7 @@ configuration {
         combi-modi: "window,drun";
         font: "Google Sans 12";
         terminal: "alacritty";
-        theme: "~/.config/rofi/desert.rasi";
+        theme: "~/.config/rofi/spaceduck.rasi";
 
 /*      width: 50;*/
 /*      lines: 15;*/
