@@ -6,8 +6,8 @@
 !README.md
 !/.gitignore
 
-!/.scripts/
-!/.scripts/**
+!/.bin/
+!/.bin/**
 
 !/.config/
 
