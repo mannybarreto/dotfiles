@@ -6,16 +6,15 @@
 !README.md
 !/.gitignore
 
-!/.scripts/
-!/.scripts/**
+!/.bin/
+!/.bin/**
+
+!/.spicetify_data/
+!/.spicetify_data/**
 
 !/.config/
 
 !/.config/starship.toml
-
-!/.config/spicetify/
-!/.config/spicetify/Themes/
-!/.config/spicetify/Themes/**
 
 !/.config/jetbrains/
 !/.config/jetbrains/**
