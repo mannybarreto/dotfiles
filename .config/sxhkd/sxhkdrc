@@ -19,7 +19,7 @@ super + Escape
 
 #screenShooter
 Print
-	ksnip -fs
+	flameshot gui
 
 #
 # bspwm hotkeys
