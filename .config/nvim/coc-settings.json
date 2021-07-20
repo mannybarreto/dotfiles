@@ -3,16 +3,39 @@
   "eslint.packageManager": "yarn",
   "eslint.nodePath": ".yarn/sdks",
   "eslint.autoFixOnSave": true,
-  "eslint.filetypes": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
-  "prettier.disableSuccessMessage": true,
-  "coc.preferences.formatOnSaveFiletypes": [
+  "eslint.filetypes": [
     "javascript",
     "javascriptreact",
     "typescript",
     "typescriptreact"
   ],
+  "prettier.disableSuccessMessage": true,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "html",
+    "json",
+    "css",
+    "scss",
+    "go"
+  ],
+  "no_proxy": true,
   "tsserver.formatOnType": true,
   "coc.preferences.formatOnType": true,
   "coc.source.OmniSharp.enable": true,
-  "coc.source.OmniSharp.triggerCharacters": "."
+  "coc.source.OmniSharp.triggerCharacters": ".",
+  "coc.preferences.hoverTarget": "float",
+  "diagnostic.checkCurrentLine": true,
+  "languageserver": {
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod"],
+      "filetypes": ["go"]
+    }
+  },
+  "go.goplsOptions": {
+    "staticcheck": true
+  }
 }

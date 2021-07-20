@@ -4,7 +4,7 @@
 let g:plug_home=expand(stdpath('data') . '/plugged')
 
 " Use fastgit for clone on Linux systems.
-let g:plug_url_format = 'https://hub.fastgit.org/%s.git'
+" let g:plug_url_format = 'https://hub.fastgit.org/%s.git'
 
 if empty(glob(g:plug_home))
 silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
@@ -18,6 +18,9 @@ call plug#begin(g:plug_home)
 "{{ Autocompletion
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'build': 'yarn install'}
 
+" Go language support
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
 " Godot semantic highlighting
 Plug 'calviken/vim-gdscript3'
 
@@ -30,6 +33,7 @@ Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'jparise/vim-graphql'
+Plug 'evanleck/vim-svelte', {'branch': 'main'}
 "}}
 
 "{{ Search
@@ -47,6 +51,10 @@ Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 Plug 'pineapplegiant/spaceduck', { 'branch': 'main' }
 Plug 'vim-airline/vim-airline'
 Plug 'mhinz/vim-startify'
+"}}
+
+"{{ IntelliJ
+Plug 'beeender/Comrade'
 "}}
 
 "{{ Navigation/Tags
@@ -127,6 +135,9 @@ Plug 'tpope/vim-obsession'
 " Visual selection stats
 Plug 'wgurecky/vimSum'
 Plug 'ojroques/vim-oscyank'
+
+" Discord integration
+Plug 'andweeb/presence.nvim'
 "}}
 
 call plug#end()
@@ -134,7 +145,7 @@ call plug#end()
 
 "{ Plugin configuration
 "{{ Autocompletion
-let g:coc_global_extensions=['coc-omnisharp', 'coc-json', 'coc-css', 'coc-tsserver', 'coc-jedi', 'coc-jest', 'coc-java', 'coc-yaml', 'coc-pairs', 'coc-fish', 'coc-rls', 'coc-html']
+let g:coc_global_extensions=['coc-omnisharp', 'coc-json', 'coc-css', 'coc-tsserver', 'coc-jedi', 'coc-jest', 'coc-svelte', 'coc-tailwindcss', 'coc-java', 'coc-yaml', 'coc-pairs', 'coc-fish', 'coc-rls', 'coc-html', 'coc-go']
 
 if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
   let g:coc_global_extensions += ['coc-prettier']
@@ -161,6 +172,36 @@ nmap <leader>rn <Plug>(coc-rename)
 nmap <leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
 nmap <leader>qf  <Plug>(coc-fix-current)
+
+autocmd BufEnter *.go nmap <leader>t  <Plug>(go-test)
+autocmd BufEnter *.go nmap <leader>tt <Plug>(go-test-func)
+autocmd BufEnter *.go nmap <leader>c  <Plug>(go-coverage-toggle)
+autocmd BufEnter *.go nmap <leader>i  <Plug>(go-info)
+autocmd BufEnter *.go nmap <leader>ii  <Plug>(go-implements)
+autocmd BufEnter *.go nmap <leader>ci  <Plug>(go-describe)
+autocmd BufEnter *.go nmap <leader>cc  <Plug>(go-callers)
+
+" disable all linters as that is taken care of by coc.nvim
+let g:go_diagnostics_enabled = 0
+let g:go_metalinter_enabled = []
+
+" don't jump to errors after metalinter is invoked
+let g:go_jump_to_error = 0
+
+" run go imports on file save
+let g:go_fmt_command = "goimports"
+
+" automatically highlight variable your cursor is on
+let g:go_auto_sameids = 0
+
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_generate_tags = 1
 "}}
 "
 "{{ UI
