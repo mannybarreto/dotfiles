@@ -5,6 +5,7 @@
 
 !README.md
 !/.gitignore
+!/.ideavimrc
 
 !/.bin/
 !/.bin/**
