@@ -4,7 +4,7 @@
 
 ####User Application ####
 alt + {b,w,p,f,l,s,d}
-	{firedragon,garuda-welcome,pamac-manager,thunar,prime-run lutris,alacritty --command spt,discord}
+	{chromium,garuda-welcome,pamac-manager,thunar,prime-run lutris,alacritty --command spt,discord}
 
 # terminal emulator
 super + Return
