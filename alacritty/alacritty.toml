@@ -1,3 +1,8 @@
+[general]
+import = [
+    "~/.config/alacritty/themes/kanagawa_dragon.toml"
+]
+
 [terminal.shell]
 args = ['--login']
 program = "/opt/homebrew/bin/fish"
