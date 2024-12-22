@@ -1,0 +1,10 @@
+[[keyboard.bindings]]
+key = 'T'
+mods = 'Command'
+action = 'None'
+
+[[keyboard.bindings]]
+key = 'W'
+mods = 'Command'
+action = 'None'
+
