@@ -1,6 +1,6 @@
 [general]
 import = [
-    "~/.config/alacritty/themes/kanagawa_dragon.toml"
+    "~/.config/alacritty/themes/gruvbox_dark.toml"
 ]
 
 [terminal.shell]
