@@ -6,24 +6,32 @@ vim.g.maplocalleader = "\\"
 
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
---  System Clipboard
-local function set_clipboard(text)
-  local handle = io.popen("pbcopy", "w") -- Use 'pbcopy' for macOS
-  handle:write(text)
-  handle:close()
-end
+-- Move highlighted selection
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
--- Yank to system clipboard
-vim.api.nvim_set_keymap("n", "yy", '"+yy', { noremap = true, silent = true })
-vim.api.nvim_set_keymap("v", "y", '"+y', { noremap = true, silent = true })
+vim.keymap.set("n", "J", "mzJ`z")
 
--- Put from system clipboard
-vim.api.nvim_set_keymap("n", "p", '"+p', { noremap = true, silent = true })
-vim.api.nvim_set_keymap("v", "p", '"+p', { noremap = true, silent = true })
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
-vim.api.nvim_create_autocmd("TextYankPost", {
-  callback = function()
-    local data = vim.fn.getreg('"')
-    set_clipboard(data)
-  end,
-})
+-- Keep Cursor in the middle during search
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
+
+-- Do stuff without losing register
+vim.keymap.set("x", "<leader>p", "\"_dP")
+vim.keymap.set("n", "<leader>d", "\"_d")
+vim.keymap.set("v", "<leader>d", "\"_d")
+
+vim.keymap.set("n", "<leader>f", function()
+    vim.lsp.buf.fmormat()
+end)
+
+vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
+vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
+vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
+
+vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+
