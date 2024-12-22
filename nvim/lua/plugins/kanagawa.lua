@@ -1,5 +1,5 @@
 return {
-	"rebelot/kanagawa.nvim",
-	config = function()
-	end
+    "rebelot/kanagawa.nvim",
+    config = function()
+    end
 }

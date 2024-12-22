@@ -1,18 +1,18 @@
 local opts = {
     clipboard = 'unnamedplus', -- System clipboard
 
-	number = true,
-	relativenumber = true,
+    number = true,
+    relativenumber = true,
 
     -- 4 character tabs.
-	shiftwidth = 4,
-	tabstop = 4,
-	softtabstop = 4,
-	expandtab = true,
+    shiftwidth = 4,
+    tabstop = 4,
+    softtabstop = 4,
+    expandtab = true,
 
     smartindent = true, -- Indent on new lines
 
-	wrap = false,
+    wrap = false,
 
     -- Don't save backups and swap files, but undofiles are cool
     swapfile = false,
@@ -25,7 +25,7 @@ local opts = {
     incsearch = true,
 
     -- 24 bit RGB.
-	termguicolors = true,
+    termguicolors = true,
 
     -- Show at least 8 lines at bottom if possible
     scrolloff = 8,
@@ -39,7 +39,7 @@ local opts = {
 
 -- Set options from table
 for opt, val in pairs(opts) do
-	vim.o[opt] = val
+    vim.o[opt] = val
 end
 
 local colorscheme = require("helpers.colorscheme")
