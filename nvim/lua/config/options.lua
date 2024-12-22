@@ -13,6 +13,10 @@ for opt, val in pairs(opts) do
 	vim.o[opt] = val
 end
 
--- Set other options
 local colorscheme = require("helpers.colorscheme")
 vim.cmd.colorscheme(colorscheme)
+
+-- Transparent background
+vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+
