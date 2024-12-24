@@ -1,12 +1,16 @@
--- Pull in the wezterm API
 local wezterm = require 'wezterm'
 
 -- This will hold the configuration.
 local config = wezterm.config_builder()
 
-config.color_scheme = 'Gruvbox Dark (Gogh)'
-
 config.font_size = 16.0
+
+config.color_scheme = 'rose-pine'
+
+-- Transparency
+config.window_background_opacity = 0.7
+
+config.window_decorations = "NONE"
 
 -- Spawn a fish shell in login mode
 config.default_prog = { '/opt/homebrew/bin/fish', '-l' }
