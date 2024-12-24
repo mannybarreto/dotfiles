@@ -11,8 +11,6 @@ config.color_scheme = 'rose-pine'
 -- Transparency
 config.window_background_opacity = 0.7
 
-config.window_decorations = "NONE"
-
 -- Spawn a fish shell in login mode
 config.default_prog = { '/opt/homebrew/bin/fish', '-l' }
 
