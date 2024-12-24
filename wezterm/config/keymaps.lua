@@ -2,10 +2,6 @@ local wezterm = require('wezterm')
 local action = wezterm.action
 
 local keys = {
-    -- Copy / paste
-    { key = 'c', mods = 'CTRL',  action = action.CopyTo('Clipboard') },
-    { key = 'v', mods = 'CTRL',  action = action.PasteFrom('Clipboard') },
-
     -- tabs --
     -- tabs: spawn+close
     { key = 't', mods = 'SUPER', action = action.SpawnTab('DefaultDomain') },
