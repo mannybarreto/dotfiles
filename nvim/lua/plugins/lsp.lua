@@ -76,12 +76,22 @@ return {
             require('mason-lspconfig').setup({
                 -- Replace the language servers listed here
                 -- with the ones you want to install
-                ensure_installed = { 'lua_ls' },
+                ensure_installed = { 'clangd', 'lua_ls' },
                 handlers = {
-                    function(server_name)
-                        require('lspconfig')[server_name].setup({})
+                    clangd = function()
+                        require('lspconfig').clangd.setup {
+                            cmd = {
+                                "clangd",
+                                "--compile-commands-dir=.",
+                                "--background-index",
+                                "--query-driver=/opt/devkitpro/devkitARM/bin/arm-none-eabi-gcc"
+                            },
+                        }
                     end,
-                },
+                    lua_ls = function()
+                        require('lspconfig').lua_ls.setup {} -- Default settings for lua_ls
+                    end,
+                }
             })
         end
     }

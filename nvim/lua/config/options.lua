@@ -34,7 +34,7 @@ local opts = {
     -- Faster cursor hold event
     updatetime = 50,
 
-    colorcolumn = "80"
+    colorcolumn = "80",
 }
 
 -- Set options from table
@@ -49,3 +49,5 @@ vim.cmd.colorscheme(colorscheme)
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 vim.opt.colorcolumn = ""
+
+vim.cmd("set wrap smoothscroll")
