@@ -4,13 +4,14 @@ return {
     dependencies = { "nvim-lua/plenary.nvim", "telescope.nvim" },
     keys = {
         { "<leader>a", function() require("harpoon"):list():add() end },
+        { "<leader>r", function() require("harpoon"):list():remove() end },
         -- Disable this in favor of the telescope front end initialized below.
         -- { "<C-e>",     function() require("harpoon").ui:toggle_quick_menu(require("harpoon"):list()) end },
 
-        { "<C-h>",     function() require("harpoon"):list():select(1) end },
-        { "<C-t>",     function() require("harpoon"):list():select(2) end },
-        { "<C-n>",     function() require("harpoon"):list():select(3) end },
-        { "<C-s>",     function() require("harpoon"):list():select(4) end },
+        { "<C-1>",     function() require("harpoon"):list():select(1) end },
+        { "<C-2>",     function() require("harpoon"):list():select(2) end },
+        { "<C-3>",     function() require("harpoon"):list():select(3) end },
+        { "<C-4>",     function() require("harpoon"):list():select(4) end },
 
         -- Toggle previous & next buffers stored within Harpoon list
         { "<C-S-P>",   function() require("harpoon"):list():prev() end },
