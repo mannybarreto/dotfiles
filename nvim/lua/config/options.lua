@@ -42,6 +42,8 @@ for opt, val in pairs(opts) do
     vim.o[opt] = val
 end
 
+vim.g.shell = "/usr/bin/fish"
+
 local colorscheme = require("helpers.colorscheme")
 vim.cmd.colorscheme(colorscheme)
 
