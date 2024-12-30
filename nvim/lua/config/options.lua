@@ -1,3 +1,17 @@
+function set_options_from_table(table)
+    -- Set options from table
+    for opt, val in pairs(table) do
+        vim.o[opt] = val
+    end
+end
+
+function set_local_options_from_table(table)
+    -- Set options from table
+    for opt, val in pairs(table) do
+        vim.opt_local[opt] = val
+    end
+end
+
 local opts = {
     clipboard = 'unnamedplus', -- System clipboard
 
@@ -37,10 +51,8 @@ local opts = {
     colorcolumn = "80",
 }
 
--- Set options from table
-for opt, val in pairs(opts) do
-    vim.o[opt] = val
-end
+set_options_from_table(opts)
+
 
 vim.g.shell = "/usr/bin/fish"
 
@@ -52,4 +64,24 @@ vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 vim.opt.colorcolumn = ""
 
-vim.cmd("set wrap smoothscroll")
+-- Markdown Specific
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "markdown",
+    callback = function()
+        set_local_options_from_table({
+            wrap = true,
+            linebreak = true,
+            -- Treat visual/logical lines together
+            -- Scrolling through visual lines without leaving view
+            smoothscroll = true,
+            -- Indent wrapped lines visually
+            breakindent = true,
+            breakindentopt = "shift:2,min:40",
+        });
+
+        vim.keymap.set('n', 'j', function() return vim.v.count == 0 and 'gj' or '<Esc>' .. vim.v.count .. 'j' end,
+            { expr = true, noremap = true, buffer = 0 })
+        vim.keymap.set('n', 'k', function() return vim.v.count == 0 and 'gk' or '<Esc>' .. vim.v.count .. 'k' end,
+            { expr = true, noremap = true, buffer = 0 })
+    end,
+})
