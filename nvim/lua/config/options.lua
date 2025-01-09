@@ -19,9 +19,9 @@ local opts = {
     relativenumber = true,
 
     -- 4 character tabs.
-    shiftwidth = 4,
-    tabstop = 4,
-    softtabstop = 4,
+    shiftwidth = 2,
+    tabstop = 2,
+    softtabstop = 2,
     expandtab = true,
 
     smartindent = true, -- Indent on new lines
