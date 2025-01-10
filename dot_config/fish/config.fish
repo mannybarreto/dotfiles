@@ -10,3 +10,5 @@ function setup_devkitpro
 end
 
 setup_devkitpro
+
+set -gx $EDITOR nvim
