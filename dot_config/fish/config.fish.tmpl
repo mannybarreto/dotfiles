@@ -1,0 +1,29 @@
+if status is-interactive
+    # Commands to run in interactive sessions can go here
+    starship init fish | source
+end
+
+set -gx MB_CONFIG "$HOME/.config"
+set -gx MB_BIN "$HOME/.bin"
+
+set -gx $EDITOR nvim
+
+{{ if .isWorkComputer }}
+set -gx MB_PROFILE_DIR "$HOME/config/fish"
+{{ else }}
+set -gx MB_PROFILE_DIR "$MB_CONFIG/fish/home"
+{{ end }}
+
+function _load_profile
+    set -l initrc "$MB_PROFILE_DIR/init.fish"
+    if [ -f $initrc ]
+        source $initrc
+    end
+
+    set -l autoload_dir "$MB_PROFILE_DIR/functions"
+    if test -d $autoload_dir
+        set -U fish_function_path $fish_function_path $autoload_dir
+    end
+end
+
+_load_profile

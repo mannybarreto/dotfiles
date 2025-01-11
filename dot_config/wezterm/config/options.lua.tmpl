@@ -1,0 +1,9 @@
+return {
+  -- Spawn a fish shell in login mode.
+{{ if .isWorkComputer }}
+  default_prog = { '/usr/local/bin/fish', '-l' }
+{{ else }}
+  default_prog = { '/opt/homebrew/bin/fish', '-l' }
+{{ end }}
+}
+
