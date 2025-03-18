@@ -7,5 +7,5 @@ return {
   color_scheme = 'Everforest Dark (Gogh)',
 
   -- Transparency
-  window_background_opacity = 0.7,
+  -- window_background_opacity = 0.7,
 }
