@@ -1,4 +1,8 @@
-(setq-default vterm-shell "/opt/homebrew/bin/fish") ;; Use Fish in vterm
+(setq shell-file-name (executable-find
+                       "bash"))
+(setq-default vterm-shell
+              "/opt/homebrew/bin/fish") (setq-default explicit-shell-file-name
+              "/opt/homebrew/bin/fish")
 
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
@@ -34,7 +38,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
+(setq doom-theme 'modus-operandi)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -75,3 +79,29 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+;; Load files
+(load! "keymaps.el")
+
+(use-package! gptel
+  ;; Use :init block for setup code like keybindings needed before load
+  :init
+
+  ;; Configuration runs only *after* the package is loaded
+  :config
+  (setq
+   gptel-model 'gemma3:12b
+   gptel-backend (gptel-make-ollama "Ollama"
+                   :host "localhost:11434"
+                   :stream t
+                   :models '(gemma3:12b)))
+  (map! :leader
+        :prefix "c g"
+        :desc "GPTel Chat"       "c"   #'gptel
+        :desc "GPTel Add"        "a a" #'gptel-add
+        :desc "GPTel Add File"   "a f" #'gptel-add
+        :desc "GPTel Send"       "s"   #'gptel-send
+        )
+  )
+
+(setq doom-font (font-spec :family "MesloLGM Nerd Font Mono" :size 14))
