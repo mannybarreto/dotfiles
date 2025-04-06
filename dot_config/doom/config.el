@@ -1,44 +1,12 @@
+;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+
 (setq shell-file-name (executable-find
                        "bash"))
 (setq-default vterm-shell
               "/opt/homebrew/bin/fish") (setq-default explicit-shell-file-name
               "/opt/homebrew/bin/fish")
 
-;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
-
-;; Place your private configuration here! Remember, you do not need to run 'doom
-;; sync' after modifying this file!
-
-
-;; Some functionality uses this to identify you, e.g. GPG configuration, email
-;; clients, file templates and snippets. It is optional.
-;; (setq user-full-name "John Doe"
-;;       user-mail-address "john@doe.com")
-
-;; Doom exposes five (optional) variables for controlling fonts in Doom:
-;;
-;; - `doom-font' -- the primary font to use
-;; - `doom-variable-pitch-font' -- a non-monospace font (where applicable)
-;; - `doom-big-font' -- used for `doom-big-font-mode'; use this for
-;;   presentations or streaming.
-;; - `doom-symbol-font' -- for symbols
-;; - `doom-serif-font' -- for the `fixed-pitch-serif' face
-;;
-;; See 'C-h v doom-font' for documentation and more examples of what they
-;; accept. For example:
-;;
-;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
-;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
-;;
-;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
-;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
-;; refresh your font settings. If Emacs still can't find your font, it likely
-;; wasn't installed correctly. Font issues are rarely Doom issues!
-
-;; There are two ways to load a theme. Both assume the theme is installed and
-;; available. You can either set `doom-theme' or manually load a theme with the
-;; `load-theme' function. This is the default:
-(setq doom-theme 'modus-operandi)
+(setq doom-theme 'modus-vivendi)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -47,6 +15,16 @@
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
+
+;; Load files
+(load! "keymaps.el")
+
+(setq doom-font (font-spec :family "MesloLGM Nerd Font Mono" :size 14))
+
+(setq scroll-margin 5)
+
+;; Use Emacs for GPG passphrase entry
+(setq epa-pinentry-mode 'loopback)
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
@@ -80,28 +58,138 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-;; Load files
-(load! "keymaps.el")
-
 (use-package! gptel
-  ;; Use :init block for setup code like keybindings needed before load
-  :init
-
-  ;; Configuration runs only *after* the package is loaded
   :config
-  (setq
-   gptel-model 'gemma3:12b
-   gptel-backend (gptel-make-ollama "Ollama"
-                   :host "localhost:11434"
-                   :stream t
-                   :models '(gemma3:12b)))
+  (setq gptel-default-mode 'org-mode)
+
+  ;; Function to read API key from GPG file
+  (defun my/read-anthropic-api-key ()
+    "Read Anthropic API key from encrypted GPG file."
+    (with-temp-buffer
+      (insert-file-contents "~/.emacs.d/anthropic-api-key.gpg")
+      (string-trim (buffer-string))))
+
+  ;; Configure Claude 3.7 Sonnet backend
+  (setq my/claude-backend (gptel-make-anthropic
+                              "Claude-3.7-Sonnet"
+                            :key #'my/read-anthropic-api-key
+                            :stream t
+                            :models '(claude-3-7-sonnet-20250219)))
+
+  ;; Configure Gemma backends
+  (setq my/gemma-12b-backend (gptel-make-ollama
+                                 "Gemma-12B"
+                               :host "localhost:11434"
+                               :stream t
+                               :models '(gemma3:12b)))
+
+  (setq my/gemma-27b-backend (gptel-make-ollama
+                                 "Gemma-27B"
+                               :host "localhost:11434"
+                               :stream t
+                               :models '(gemma3:27b)))
+
+  ;; Set Gemma 12B as the default
+  (setq gptel-backend my/gemma-12b-backend)
+  (setq gptel-model 'gemma3:12b)
+
+  ;; Function to cycle between models
+  (defun my/gptel-cycle-model ()
+    "Cycle between Claude and Gemma models."
+    (interactive)
+    (cond
+     ((eq gptel-backend my/claude-backend)
+      (setq gptel-backend my/gemma-12b-backend)
+      (setq gptel-model 'gemma3:12b)
+      (message "Switched to Gemma 12B model"))
+     ((eq gptel-backend my/gemma-12b-backend)
+      (setq gptel-backend my/gemma-27b-backend)
+      (setq gptel-model 'gemma3:27b)
+      (message "Switched to Gemma 27B model"))
+     (t
+      (if (my/internet-connected-p)
+          (progn
+            (setq gptel-backend my/claude-backend)
+            (setq gptel-model 'claude-3-7-sonnet-20250219)
+            (message "Switched to Claude model"))
+        (progn
+          (setq gptel-backend my/gemma-12b-backend)
+          (setq gptel-model 'gemma3:12b)
+          (message "Cannot use Claude (offline) - using Gemma 12B instead"))))))
+
+  ;; Function to check internet connection
+  (defun my/internet-connected-p ()
+    "Return non-nil if an internet connection is available."
+    (= 0 (call-process "ping" nil nil nil "-c" "1" "-W" "1" "anthropic.com")))
+
+  ;; Function to force Claude usage with internet check
+  (defun my/gptel-use-claude ()
+    "Switch to Claude model if internet is available."
+    (interactive)
+    (if (my/internet-connected-p)
+        (progn
+          (setq gptel-backend my/claude-backend)
+          (setq gptel-model 'claude-3-7-sonnet-20250219)
+          (message "Switched to Claude model"))
+      (message "Cannot use Claude - no internet connection")))
+
+  ;; Function to force Gemma 12B usage
+  (defun my/gptel-use-gemma-12b ()
+    "Switch to Gemma 12B model."
+    (interactive)
+    (setq gptel-backend my/gemma-12b-backend)
+    (setq gptel-model 'gemma3:12b)
+    (message "Switched to Gemma 12B model"))
+
+  ;; Function to force Gemma 27B usage
+  (defun my/gptel-use-gemma-27b ()
+    "Switch to Gemma 27B model."
+    (interactive)
+    (setq gptel-backend my/gemma-27b-backend)
+    (setq gptel-model 'gemma3:27b)
+    (message "Switched to Gemma 27B model"))
+
+  ;; Keybindings
   (map! :leader
         :prefix "c g"
-        :desc "GPTel Chat"       "c"   #'gptel
-        :desc "GPTel Add"        "a a" #'gptel-add
-        :desc "GPTel Add File"   "a f" #'gptel-add
-        :desc "GPTel Send"       "s"   #'gptel-send
-        )
-  )
+        :desc "GPTel Chat"         "c" #'gptel
+        :desc "GPTel Add"          "a" #'gptel-add
+        :desc "GPTel Send"         "s" #'gptel-send
+        :desc "Cycle Model"        "t" #'my/gptel-cycle-model
+        :desc "Use Claude"         "C" #'my/gptel-use-claude
+        :desc "Use Gemma 12B"      "1" #'my/gptel-use-gemma-12b
+        :desc "Use Gemma 27B"      "2" #'my/gptel-use-gemma-27b))
 
-(setq doom-font (font-spec :family "MesloLGM Nerd Font Mono" :size 14))
+(after! dap-rust
+  ;; Tell dap-rust which debugger program to use.
+  ;; It should find 'rust-gdb' in your PATH if rustup installed it correctly.
+  (setq dap-rust-debug-program '("rust-gdb"))
+
+  ;; Optional: Define explicit templates if auto-detection doesn't work well.
+  ;; Often, just setting dap-rust-debug-program is enough, and dap-mode
+  ;; will generate a suitable configuration when you run `dap-debug`.
+  ;; But if you need specific control, you can uncomment and adapt these:
+  ;; (dap-register-debug-template
+  ;;  "Rust :: rust-gdb Launch"
+  ;;  (list :type "gdb" ; Assumes dap-mode's built-in GDB MI driver
+  ;;        :request "launch"
+  ;;        :name "Rust Launch (rust-gdb)"
+  ;;        ;; dap-mode's GDB integration uses :target for the program to debug
+  ;;        :target (lambda () (car (dap--read-compilation-program "target/debug/" :exit-fn #'executable-find)))
+  ;;        :cwd "${workspaceFolder}"
+  ;;        ;; Ensure rust-gdb is the command dap uses to start gdb
+  ;;        :gdbpath "rust-gdb"
+  ;;        ;; :args [] ; Add command line arguments for your program here
+  ;;        ;; :env {} ; Add environment variables here
+  ;;        ))
+  ;;
+  ;; (dap-register-debug-template
+  ;;  "Rust :: rust-gdb Test"
+  ;;  (list :type "gdb"
+  ;;        :request "launch"
+  ;;        :name "Rust Test (rust-gdb)"
+  ;;        :target (lambda () (car (dap--read-compilation-program "target/debug/deps/" :exit-fn #'executable-find))) ; Find test binary
+  ;;        :cwd "${workspaceFolder}"
+  ;;        :gdbpath "rust-gdb"
+  ;;        ))
+  )
