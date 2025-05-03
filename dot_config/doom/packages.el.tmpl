@@ -48,6 +48,9 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;; (unpin! t)
 
-(package! gptel)
+{{ if not .isWorkComputer }}
+;; Load home-only packages
+(load! "home/packages")
+{{ end }}
 
 (package! modus-themes)
